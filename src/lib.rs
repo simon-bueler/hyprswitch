@@ -221,7 +221,7 @@ pub fn check_version() -> anyhow::Result<()> {
         version.version
     );
 
-    if version.version == "unknown" || parsed_version.lt(&MIN_VERSION) {
+    if version.version == "unknown" || version.version.lt(&MIN_VERSION) {
         let _ = Notification::new()
             .summary(&format!("Hyprswitch ({}) Error", option_env!("CARGO_PKG_VERSION").unwrap_or("?.?.?")))
             .body("Hyprland version too old or unknown")
