@@ -218,13 +218,10 @@ pub fn check_version() -> anyhow::Result<()> {
     trace!("Hyprland {version:?}");
     info!("Starting Hyprswitch ({}) on Hyprland {}",
         option_env!("CARGO_PKG_VERSION").unwrap_or("?.?.?"),
-        version.tag
+        version.version
     );
 
-    let parsed_version = Version::parse(version.tag.trim_start_matches('v'))
-        .context("Unable to parse Hyprland Version")?;
-
-    if version.tag == "unknown" || parsed_version.lt(&MIN_VERSION) {
+    if version.version == "unknown" || parsed_version.lt(&MIN_VERSION) {
         let _ = Notification::new()
             .summary(&format!("Hyprswitch ({}) Error", option_env!("CARGO_PKG_VERSION").unwrap_or("?.?.?")))
             .body("Hyprland version too old or unknown")
